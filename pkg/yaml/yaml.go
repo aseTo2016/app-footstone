@@ -1,4 +1,4 @@
-package pkg
+package yaml
 
 import (
 	"github.com/go-yaml/yaml"

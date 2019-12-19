@@ -1,7 +1,8 @@
 package logger
 
 import (
-	"github.com/aseTo2016/app-footstone/pkg"
+	"github.com/aseTo2016/app-footstone/pkg/runtime"
+	"github.com/aseTo2016/app-footstone/pkg/yaml"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"os"
@@ -59,13 +60,13 @@ func init() {
 func loadConfigs() (*zap.Config, error) {
 	appConfigsDir := os.Getenv("app_configs_dir")
 	if len(appConfigsDir) == 0 {
-		curPath := pkg.GetCodeFilePath()
+		curPath := runtime.GetCodeFilePath()
 		appConfigsDir = filepath.Join(filepath.Dir(filepath.Dir(curPath)), "configs")
 	}
 
 	appConfigsPath := filepath.Join(appConfigsDir, "log.yaml")
 
 	cfg := new(zap.Config)
-	err := pkg.LoadYamlData(appConfigsPath, cfg)
+	err := yaml.LoadYamlData(appConfigsPath, cfg)
 	return cfg, err
 }
